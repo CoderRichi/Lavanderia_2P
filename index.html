@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LavaExpress - Lavandería Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header y Navegación */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 8px rgba(255,255,255,0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 2rem 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" fill="rgba(255,255,255,0.05)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Secciones */
+        section {
+            padding: 80px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #667eea;
+        }
+
+        /* Servicios */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .servicio-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .servicio-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .precio {
+            font-size: 1.8rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Video Section */
+        .video-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        /* Galería */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .galeria-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeria-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(102,126,234,0.9));
+            padding: 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .galeria-item:hover .galeria-overlay {
+            transform: translateY(0);
+        }
+
+        /* Testimonios */
+        .testimonios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonio {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .testimonio::before {
+            content: '"';
+            font-size: 4rem;
+            color: #667eea;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .testimonio-autor {
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 1rem;
+        }
+
+        .estrellas {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        /* Contacto */
+        .contacto-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contacto-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .contacto-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+            transform: scale(1.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .contacto-container {
+                grid-template-columns: 1fr;
+            }
+
+            .video-container iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🧺 LavaExpress</div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Tu Ropa Impecable en Tiempo Récord</h1>
+            <p>Servicio profesional de lavandería con recogida y entrega a domicilio. Calidad garantizada y precios competitivos.</p>
+            <a href="#contacto" class="cta-button">Solicita tu Servicio</a>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="servicios-grid">
+            <div class="servicio-card">
+                <div class="icon">👕</div>
+                <h3>Lavado Regular</h3>
+                <p>Lavado, secado y doblado de tu ropa diaria con productos de alta calidad que cuidan tus prendas.</p>
+                <div class="precio">$45/kg</div>
+            </div>
+            <div class="servicio-card">
+                <div class="icon">👔</div>
+                <h3>Lavado en Seco</h3>
+                <p>Tratamiento especial para prendas delicadas, trajes, vestidos y ropa que requiere cuidado profesional.</p>
+                <div class="precio">$80/prenda</div>
+            </div>
+            <div class="servicio-card">
+                <div class="icon">🏠</div>
+                <h3>Servicio Express</h3>
+                <p>¿Tienes prisa? Recogemos, lavamos y entregamos tu ropa en menos de 24 horas.</p>
+                <div class="precio">$65/kg</div>
+            </div>
+            <div class="servicio-card">
+                <div class="icon">🛏️</div>
+                <h3>Ropa de Hogar</h3>
+                <p>Lavado de sábanas, toallas, cortinas y mantelería. Servicio especializado para textiles del hogar.</p>
+                <div class="precio">$55/kg</div>
+            </div>
+            <div class="servicio-card">
+                <div class="icon">👟</div>
+                <h3>Zapatos y Tenis</h3>
+                <p>Limpieza profunda de calzado deportivo y zapatos de vestir. Devolvemos la vida a tus zapatos favoritos.</p>
+                <div class="precio">$35/par</div>
+            </div>
+            <div class="servicio-card">
+                <div class="icon">🧥</div>
+                <h3>Planchado Premium</h3>
+                <p>Planchado profesional que deja tus camisas y pantalones perfectos como recién comprados.</p>
+                <div class="precio">$18/prenda</div>
+            </div>
+        </div>
+    </section>
+
+<!-- Video -->
+<section>
+    <h2>Conoce Nuestras Instalaciones</h2>
+    <div class="video-container">
+        <video controls width="100%">
+            <source src="/videos/Video_Presentacion.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+</section>
+
+    <!-- Galería -->
+    <section id="galeria">
+        <h2>Galería de Nuestro Trabajo</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500" alt="Lavandería moderna">
+                <div class="galeria-overlay">
+                    <h3>Instalaciones Modernas</h3>
+                </div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=500" alt="Ropa limpia doblada">
+                <div class="galeria-overlay">
+                    <h3>Ropa Impecable</h3>
+                </div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500" alt="Planchado profesional">
+                <div class="galeria-overlay">
+                    <h3>Planchado Profesional</h3>
+                </div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=500" alt="Lavadoras industriales">
+                <div class="galeria-overlay">
+                    <h3>Equipo de Última Generación</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios">
+        <h2>Lo Que Dicen Nuestros Clientes</h2>
+        <div class="testimonios-container">
+            <div class="testimonio">
+                <div class="estrellas">★★★★★</div>
+                <p>Excelente servicio, siempre puntuales con la entrega y mi ropa queda perfecta. Lo recomiendo 100%.</p>
+                <p class="testimonio-autor">- María González</p>
+            </div>
+            <div class="testimonio">
+                <div class="estrellas">★★★★★</div>
+                <p>La mejor lavandería de la ciudad. Han salvado varias de mis prendas delicadas. Muy profesionales.</p>
+                <p class="testimonio-autor">- Carlos Ramírez</p>
+            </div>
+            <div class="testimonio">
+                <div class="estrellas">★★★★★</div>
+                <p>El servicio express es increíble. Pedí el servicio por la mañana y por la tarde ya tenía mi ropa lista.</p>
+                <p class="testimonio-autor">- Ana Martínez</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <h2>Contáctanos</h2>
+        <div class="contacto-container">
+            <div class="contacto-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" required placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" required placeholder="Tu teléfono">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Servicio de Interés</label>
+                        <input type="text" placeholder="¿Qué servicio necesitas?">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea placeholder="Cuéntanos más detalles..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Solicitud</button>
+                </form>
+            </div>
+            <div class="contacto-info">
+                <h3>Información de Contacto</h3>
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div>
+                        <strong>Dirección</strong><br>
+                        Av. Principal #123<br>
+                        Buenavista, México
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div>
+                        <strong>Teléfono</strong><br>
+                        +52 55 1234 5678
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✉️</span>
+                    <div>
+                        <strong>Email</strong><br>
+                        contacto@lavaexpress.com
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🕒</span>
+                    <div>
+                        <strong>Horario</strong><br>
+                        Lunes a Sábado: 8:00 - 20:00<br>
+                        Domingo: 9:00 - 14:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 LavaExpress - Todos los derechos reservados</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="WhatsApp">💬</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+            this.reset();
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.servicio-card, .testimonio, .galeria-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
